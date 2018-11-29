@@ -1,4 +1,5 @@
 You’re an engineer working for the Amazon package sorting department. You need to make a package sorting algorithm so that they can remove an entire step in their sorting line. 
+
 The packages you receive have the following traits:
 Size: XL, Large, Medium, or Small
 Fragile: True or False
