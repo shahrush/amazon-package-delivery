@@ -1,13 +1,21 @@
 You’re an engineer working for the Amazon package sorting department. You need to make a package sorting algorithm so that they can remove an entire step in their sorting line. 
 
 The packages you receive have the following traits:
+
 Size: XL, Large, Medium, or Small
+
 Fragile: True or False
+
 SendDate: a date that the package is to be delivered
+
 Prime: True or False
+
 NextCity: a string value of the next city
+
 Origin: string of the city where it arrived
+
 Weight: weight of package in pounds
+
 
 To correctly send the packages to the next level of sorting, the following needs to be done by your sorter:
 1.	All packages must be sent in order of SendDate
