@@ -42,5 +42,23 @@ public class Main extends DataLoader {
                 packageClassList.add(new PackageClass(attribute));
             }
         }
+
+        fragilePackages = segregateFragilePackages(packageClassList);
+
     }
+
+    private static List<PackageClass> segregateFragilePackages(List<PackageClass> packageClassList){
+
+        List<PackageClass> fragilePackages = new ArrayList<>();
+        for (int i = 0 ; i < packageClassList.size(); i++){
+            if(packageClassList.get(i).isFragile()){
+                fragilePackages.add(packageClassList.get(i));
+            }
+        }
+
+        return fragilePackages;
+    }
+
+
+
 }
