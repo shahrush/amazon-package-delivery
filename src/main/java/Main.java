@@ -10,9 +10,7 @@ public class Main extends DataLoader {
         List<String> packages = data.stream().map(s-> s.replaceAll("\\{}", "").
                 replaceAll("}", "").replaceAll("\"", "")).collect(Collectors.toList());
 
-        List<List<String>> attributes = packages.stream().map(s -> Arrays.asList(s.split(","))).collect(Collectors.toList());
-
-        return attributes;
+        return packages.stream().map(s -> Arrays.asList(s.split(","))).collect(Collectors.toList());
     }
 
     private static boolean isEmptyValue(List<String> entry){
@@ -21,7 +19,37 @@ public class Main extends DataLoader {
                 return true;
             }
         }
+        
         return false;
+    }
+
+    private static List<PackageClass> segregateFragilePackages(List<PackageClass> packageClassList){
+
+        List<PackageClass> fragilePackages = new ArrayList<>();
+        for (int i = 0 ; i < packageClassList.size(); i++){
+            if(packageClassList.get(i).isFragile()){
+                fragilePackages.add(packageClassList.get(i));
+            }
+        }
+
+        return fragilePackages;
+    }
+
+    private static List<PackageClass> segregateExpeditedPackages(List<PackageClass> packageClassList){
+
+        List<PackageClass> expeditedPackages = new ArrayList<>();
+
+        Date currentDate = new Date();
+
+        for (int i = 0 ; i < packageClassList.size(); i++){
+            Date futureDate = packageClassList.get(i).getSendDate();
+            int diffInDays = (int)( (futureDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24) );
+            if(diffInDays < 2){
+                expeditedPackages.add(packageClassList.get(i));
+            }
+        }
+
+        return expeditedPackages;
     }
 
     public static void main(String[] args) throws Exception {
@@ -45,20 +73,7 @@ public class Main extends DataLoader {
 
         fragilePackages = segregateFragilePackages(packageClassList);
 
+        expeditedPackages = segregateExpeditedPackages(packageClassList);
+
     }
-
-    private static List<PackageClass> segregateFragilePackages(List<PackageClass> packageClassList){
-
-        List<PackageClass> fragilePackages = new ArrayList<>();
-        for (int i = 0 ; i < packageClassList.size(); i++){
-            if(packageClassList.get(i).isFragile()){
-                fragilePackages.add(packageClassList.get(i));
-            }
-        }
-
-        return fragilePackages;
-    }
-
-
-
 }
