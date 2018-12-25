@@ -19,7 +19,7 @@ public class Main extends DataLoader {
                 return true;
             }
         }
-        
+
         return false;
     }
 
@@ -52,6 +52,22 @@ public class Main extends DataLoader {
         return expeditedPackages;
     }
 
+    private static List<PackageClass> segregateNormalPackages(List<PackageClass> packageClassList){
+
+        Date currentDate = new Date();
+
+        List<PackageClass> normalPackages = new ArrayList<>();
+        for (int i = 0 ; i < packageClassList.size(); i++){
+            Date futureDate = packageClassList.get(i).getSendDate();
+            int diffInDays = (int)( (futureDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24) );
+            if(!packageClassList.get(i).isFragile() && diffInDays > 2){
+                normalPackages.add(packageClassList.get(i));
+            }
+        }
+
+        return normalPackages;
+    }
+
     public static void main(String[] args) throws Exception {
 
         DataLoader d = new DataLoader();
@@ -74,6 +90,10 @@ public class Main extends DataLoader {
         fragilePackages = segregateFragilePackages(packageClassList);
 
         expeditedPackages = segregateExpeditedPackages(packageClassList);
+
+        normalPackages = segregateNormalPackages(packageClassList);
+
+
 
     }
 }
