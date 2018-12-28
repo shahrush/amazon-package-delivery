@@ -68,6 +68,21 @@ public class Main extends DataLoader {
         return normalPackages;
     }
 
+    private static void sortPackages(List<PackageClass> packageClassList){
+
+        Collections.sort(packageClassList, Comparator.comparing(PackageClass::getSendDate)
+                .thenComparing(PackageClass::getSizePriority)
+                .thenComparing((PackageClass p)->!p.isPrime()));
+
+        System.out.println("           Send Date        " + " | " + " Size " + " |" + "Prime" + " | " + "Fragile " + " | " + "   To   " + "   | " + "   From   " + " | " + "Weight    " );
+
+        for(PackageClass amazonPackage: packageClassList){
+            System.out.println(amazonPackage.getSendDate() + " | " + amazonPackage.getSize() + " |" + amazonPackage.isPrime()
+                    + " | " + amazonPackage.isFragile() + "     |    " + amazonPackage.getNextCity() + " |   " + amazonPackage.getOrigin()
+                    + "  | "  + amazonPackage.getWeight());
+        }
+    }
+
     public static void main(String[] args) throws Exception {
 
         DataLoader d = new DataLoader();
