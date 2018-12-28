@@ -11,9 +11,10 @@ public class PackageClass {
     private String nextCity;
     private String origin;
     private String weight;
+    private Map<String, Integer> sizeMap;
 
     public PackageClass(List<String> attributes) throws ParseException {
-
+        initializeSizeMap();
         SimpleDateFormat format = new SimpleDateFormat("M/d/yyyy hh:mmaa", Locale.getDefault());
         this.size = attributes.get(0).split(":")[1];
         this.fragile = Boolean.parseBoolean(attributes.get(1).split(":")[1]);
@@ -24,6 +25,29 @@ public class PackageClass {
         this.weight = attributes.get(6).split(":")[1];
     }
 
+    public PackageClass(String size, Boolean fragile, Date sendDate, Boolean prime, String nextCity, String origin, String weight){
+
+        initializeSizeMap();
+        this.size = size;
+        this.fragile = fragile;
+        this.sendDate = sendDate;
+        this.prime = prime;
+        this.nextCity =  nextCity;
+        this.origin = origin;
+        this.weight = weight;
+    }
+
+    public void initializeSizeMap(){
+        sizeMap = new HashMap<>();
+        sizeMap.put("Small", 1);
+        sizeMap.put("Medium", 2);
+        sizeMap.put("Large", 3);
+        sizeMap.put("XL", 4);
+    }
+
+    public int getSizePriority() {
+        return this.sizeMap.get(this.size);
+    }
 
     public String getSize() { return this.size; }
 
