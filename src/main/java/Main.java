@@ -108,6 +108,26 @@ public class Main extends DataLoader {
 
         normalPackages = segregateNormalPackages(packageClassList);
 
+        System.out.println("===============================================");
+        System.out.println("             Sorted Packages                   ");
+        System.out.println("===============================================");
+        sortPackages(normalPackages);
+        System.out.println("===============================================\n");
+
+
+        System.out.println("\n===============================================");
+        System.out.println("             Fragile Packages                   ");
+        System.out.println("===============================================");
+        sortPackages(fragilePackages);
+        System.out.println("===============================================\n");
+
+
+        System.out.println("\n===============================================");
+        System.out.println("             Expedited Packages                   ");
+        System.out.println("===============================================");
+        sortPackages(expeditedPackages);
+        System.out.println("===============================================\n");
+
 
 
     }
